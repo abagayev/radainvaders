@@ -26,24 +26,47 @@ function Game() {
 
     //  Set the initial config.
     this.config = {
-        bombRate: 0.05,
+        bombRate: 0.01,
         bombMinVelocity: 50,
         bombMaxVelocity: 50,
-        invaderInitialVelocity: 25,
+        invaderInitialVelocity: 10,
         invaderAcceleration: 0,
         invaderDropDistance: 20,
-        rocketVelocity: 120,
-        rocketMaxFireRate: 2,
-        gameWidth: 400,
+        rocketVelocity: 200,
+        rocketMaxFireRate: 5,
+        gameWidth: 500,
         gameHeight: 300,
         fps: 50,
         debugMode: false,
-        invaderRanks: 5,
-        invaderFiles: 10,
+        invaderFiles: 45,
+        invaderRanks: 18,
         shipSpeed: 120,
         levelDifficultyMultiplier: 0.2,
-        pointsPerInvader: 5
+        pointsPerInvader: 5,
+        // init map
+        map: [
+            [0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,1,1,1,1,0,1,1,1,1,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,1,1,1,1,1,0,1,1,1,1,1,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0],
+            [0,0,0,0,0,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,0,0,0,0,0],
+            [0,0,0,0,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,0,0,0,0],
+            [0,0,1,1,1,1,1,1,0,0,0,1,1,1,1,1,0,0,1,1,1,1,0,1,1,1,1,0,0,1,1,1,1,1,0,0,0,1,1,1,1,1,1,0,1],
+            [0,0,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,1,1,1,0,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,1,1,1,0,1],
+            [0,0,1,1,1,0,0,0,0,1,1,1,1,1,1,0,0,1,1,1,1,1,0,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,0,0,1,1,1,0,1],
+            [0,0,1,1,0,0,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,0,0,0,1,1,0,1],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [1,0,0,0,0,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,0,0,0,0,0,1],
+            [1,0,0,0,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,0,0,0,1],
+            [1,0,0,0,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,0,0,0,0,1],
+            [0,0,0,0,0,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,0,0,1],
+            [0,0,0,0,0,0,0,0,1,1,0,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,0,1,1,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0],
+            [0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0],
+        ]
     };
+
+
 
     //  All state is in the variables below.
     this.lives = 3;
@@ -79,7 +102,7 @@ Game.prototype.initialise = function(gameCanvas) {
     this.gameBounds = {
         left: gameCanvas.width / 2 - this.config.gameWidth / 2,
         right: gameCanvas.width / 2 + this.config.gameWidth / 2,
-        top: gameCanvas.height / 2 - this.config.gameHeight / 2,
+        top: gameCanvas.height / 2 - this.config.gameHeight,
         bottom: gameCanvas.height / 2 + this.config.gameHeight / 2,
     };
 };
@@ -233,7 +256,7 @@ WelcomeState.prototype.draw = function(game, dt, ctx) {
     ctx.fillStyle = '#ffffff';
     ctx.textBaseline="center"; 
     ctx.textAlign="center"; 
-    ctx.fillText("Space Invaders", game.width / 2, game.height/2 - 40); 
+    ctx.fillText("Rada Invaders", game.width / 2, game.height/2 - 40);
     ctx.font="16px Arial";
 
     ctx.fillText("Press 'Space' to start.", game.width / 2, game.height/2); 
@@ -266,7 +289,7 @@ GameOverState.prototype.draw = function(game, dt, ctx) {
     ctx.fillStyle = '#ffffff';
     ctx.textBaseline="center"; 
     ctx.textAlign="center"; 
-    ctx.fillText("Game Over!", game.width / 2, game.height/2 - 40); 
+    ctx.fillText("Game Over!", game.width / 2, game.height/2 - 40);
     ctx.font="16px Arial";
     ctx.fillText("You scored " + game.score + " and got to level " + game.level, game.width / 2, game.height/2);
     ctx.font="16px Arial";
@@ -319,15 +342,23 @@ PlayState.prototype.enter = function(game) {
     this.bombMinVelocity = this.config.bombMinVelocity + (levelMultiplier * this.config.bombMinVelocity);
     this.bombMaxVelocity = this.config.bombMaxVelocity + (levelMultiplier * this.config.bombMaxVelocity);
 
+    console.log(this.config.map.length, this.config.map[0].length);
+
     //  Create the invaders.
     var ranks = this.config.invaderRanks;
     var files = this.config.invaderFiles;
     var invaders = [];
     for(var rank = 0; rank < ranks; rank++){
         for(var file = 0; file < files; file++) {
+
+            if (typeof this.config.map[rank] == 'undefined' ||
+                typeof this.config.map[rank][file] == 'undefined' ||
+                this.config.map[rank][file] == 0
+            ) continue;
+
             invaders.push(new Invader(
-                (game.width / 2) + ((files/2 - file) * 200 / files),
-                (game.gameBounds.top + rank * 20),
+                (game.width / 2) + ((file - files/2) * 400 / files),
+                (game.gameBounds.top + rank * 10),
                 rank, file, 'Invader'));
         }
     }
@@ -434,15 +465,18 @@ PlayState.prototype.update = function(game, dt) {
     }
     
     //  Check for rocket/invader collisions.
+    var accuracy = 3;
     for(i=0; i<this.invaders.length; i++) {
         var invader = this.invaders[i];
         var bang = false;
 
+
+
         for(var j=0; j<this.rockets.length; j++){
             var rocket = this.rockets[j];
 
-            if(rocket.x >= (invader.x - invader.width/2) && rocket.x <= (invader.x + invader.width/2) &&
-                rocket.y >= (invader.y - invader.height/2) && rocket.y <= (invader.y + invader.height/2)) {
+            if(rocket.x >= (invader.x - invader.width/2) -accuracy && rocket.x <= (invader.x + invader.width/2) +accuracy &&
+                rocket.y >= (invader.y - invader.height/2) -accuracy  && rocket.y <= (invader.y + invader.height/2) +accuracy)  {
                 
                 //  Remove the rocket, set 'bang' so we don't process
                 //  this rocket again.
@@ -640,6 +674,8 @@ function LevelIntroState(level) {
 
 LevelIntroState.prototype.update = function(game, dt) {
 
+    game.moveToState(new PlayState(game.config, this.level));
+
     //  Update the countdown.
     if(this.countdown === undefined) {
         this.countdown = 3; // countdown from 3 secs
@@ -725,8 +761,8 @@ function Invader(x, y, rank, file, type) {
     this.rank = rank;
     this.file = file;
     this.type = type;
-    this.width = 18;
-    this.height = 14;
+    this.width = 8;
+    this.height = 8;
 }
 
 /*
@@ -799,6 +835,8 @@ Sounds.prototype.loadSound = function(name, url) {
 };
 
 Sounds.prototype.playSound = function(name) {
+
+    return;
 
     //  If we've not got the sound, don't bother playing it.
     if(this.sounds[name] === undefined || this.sounds[name] === null || this.mute === true) {
