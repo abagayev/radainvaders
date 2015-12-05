@@ -32,49 +32,63 @@ function Game() {
         invaderInitialVelocity: 10,
         invaderAcceleration: 0,
         invaderDropDistance: 20,
-        rocketVelocity: 200,
-        rocketMaxFireRate: 5,
+        rocketVelocity: 300,
+        rocketMaxFireRate: 10,
         gameWidth: 500,
         gameHeight: 300,
         fps: 50,
         debugMode: false,
         invaderFiles: 45,
         invaderRanks: 18,
-        shipSpeed: 120,
-        levelDifficultyMultiplier: 0.2,
-        pointsPerInvader: 5,
+        shipSpeed: 150,
+        levelDifficultyMultiplier: 1.7  ,
+        pointsPerInvader: 1,
+
         // init map
+
+        // 1 БЛОК ПЕТРА ПОРОШЕНКА
+        // 2 НАРОДНИЙ ФРОНТ
+        // 3 Позафракційні
+        // 4 Опозиційний блок
+        // 5 САМОПОМІЧ
+        // 6 Відродження
+        // 7 Радикальної партії Олега Ляшка
+        // 8 Воля народу
+        // 9 Батьківщина
+
         map: [
-            [0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,1,1,1,1,0,1,1,1,1,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,1,1,1,1,1,0,1,1,1,1,1,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0],
-            [0,0,0,0,0,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,0,0,0,0,0],
-            [0,0,0,0,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,0,0,0,0],
-            [0,0,1,1,1,1,1,1,0,0,0,1,1,1,1,1,0,0,1,1,1,1,0,1,1,1,1,0,0,1,1,1,1,1,0,0,0,1,1,1,1,1,1,0,1],
-            [0,0,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,1,1,1,0,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,1,1,1,0,1],
-            [0,0,1,1,1,0,0,0,0,1,1,1,1,1,1,0,0,1,1,1,1,1,0,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,0,0,1,1,1,0,1],
-            [0,0,1,1,0,0,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,0,0,0,1,1,0,1],
+            [0,0,0,0,0,0,0,0,0,0,0,1,0,1,3,0,0,0,1,1,3,3,0,9,9,9,9,0,0,0,5,5,5,5,5,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,1,1,1,1,1,0,9,9,9,9,9,0,0,0,5,5,0,5,5,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,1,1,1,0,0,1,1,0,9,9,9,9,9,9,9,0,0,0,5,5,5,5,5,5,0,0,0,0,0,0],
+            [0,0,0,0,0,1,1,1,1,1,1,0,0,0,1,1,1,1,1,0,3,3,0,9,9,9,3,3,0,3,3,0,0,0,5,5,5,0,5,5,0,0,0,0,0],
+            [0,0,0,0,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,3,3,3,0,7,3,3,3,3,3,3,3,3,0,0,0,5,5,5,5,5,5,0,0,0,0],
+            [0,0,1,1,1,1,1,1,0,0,0,1,1,0,1,1,0,0,1,1,1,1,0,7,7,7,7,0,0,8,8,0,6,8,0,0,0,3,3,3,3,0,3,0,7],
+            [0,0,1,1,0,1,1,0,0,1,1,1,1,3,1,0,0,1,1,0,1,1,0,7,7,7,7,0,0,0,8,8,8,8,8,8,0,0,3,3,3,3,3,0,3],
+            [0,0,1,1,1,0,0,0,0,1,1,1,3,7,3,0,0,0,3,0,1,1,0,7,7,7,7,7,0,0,8,8,0,8,8,8,0,0,0,0,3,3,3,0,4],
+            [0,0,1,1,0,0,0,1,1,1,1,1,3,1,0,0,1,1,1,0,1,8,0,7,0,7,7,7,7,0,0,8,0,8,0,8,6,8,0,0,0,3,3,0,3],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [1,0,0,0,0,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,0,0,0,0,0,1],
-            [1,0,0,0,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,0,0,0,1],
-            [1,0,0,0,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,0,0,0,0,1],
-            [0,0,0,0,0,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,0,0,1],
-            [0,0,0,0,0,0,0,0,1,1,0,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,0,1,1,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0],
-            [0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0],
-        ]
+            [1,0,0,0,0,0,1,1,1,1,1,1,1,0,0,2,2,2,2,2,2,2,0,2,2,2,2,6,6,6,0,0,4,4,4,0,0,4,4,0,0,0,0,0,4],
+            [1,0,0,0,3,1,1,1,1,1,1,1,0,0,2,2,2,2,2,2,2,2,0,2,2,2,2,6,6,6,6,0,0,4,4,4,0,0,4,4,4,0,0,0,4],
+            [1,0,0,0,0,1,1,0,1,1,1,1,0,0,2,2,2,2,2,2,2,2,0,2,2,2,2,6,6,6,6,0,0,4,4,4,0,4,4,4,0,0,0,0,4],
+            [0,0,0,0,0,1,8,1,1,1,1,0,0,2,2,2,2,2,2,2,2,2,0,2,2,2,0,6,6,6,6,6,0,0,4,4,4,4,4,4,0,0,0,0,4],
+            [0,0,0,0,0,0,0,0,1,1,0,0,2,2,2,2,2,0,2,2,2,2,0,2,2,2,2,0,6,4,6,6,6,0,0,4,4,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,0,2,2,2,2,0,2,2,2,2,2,3,3,6,3,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,3,0,4,4,0,0,0],
+            [0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,2,2,2,2,0,0,0,0,0,0,4,4,4,4,4,4,4,0,0,0],
+        ],
+        score_fractions_template: {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0}
     };
 
 
 
     //  All state is in the variables below.
-    this.lives = 3;
+    this.lives = 100;
     this.width = 0;
     this.height = 0;
     this.gameBounds = {left: 0, top: 0, right: 0, bottom: 0};
     this.intervalId = 0;
     this.score = 0;
+    this.score_fractions = this.config.score_fractions_template;
     this.level = 1;
 
     //  The state stack.
@@ -132,7 +146,7 @@ Game.prototype.start = function() {
     this.moveToState(new WelcomeState());
 
     //  Set the game variables.
-    this.lives = 3;
+    this.lives = 100;
     this.config.debugMode = /debug=true/.test(window.location.href);
 
     //  Start the game loop.
@@ -267,7 +281,8 @@ WelcomeState.prototype.keyDown = function(game, keyCode) {
         //  Space starts the game.
         game.level = 1;
         game.score = 0;
-        game.lives = 3;
+        game.score_fractions = game.config.score_fractions_template;
+        game.lives = 100;
         game.moveToState(new LevelIntroState(game.level));
     }
 };
@@ -299,8 +314,9 @@ GameOverState.prototype.draw = function(game, dt, ctx) {
 GameOverState.prototype.keyDown = function(game, keyCode) {
     if(keyCode == 32) /*space*/ {
         //  Space restarts the game.
-        game.lives = 3;
+        game.lives = 100;
         game.score = 0;
+        game.score_fractions = game.config.score_fractions_template;
         game.level = 1;
         game.moveToState(new LevelIntroState(1));
     }
@@ -342,8 +358,6 @@ PlayState.prototype.enter = function(game) {
     this.bombMinVelocity = this.config.bombMinVelocity + (levelMultiplier * this.config.bombMinVelocity);
     this.bombMaxVelocity = this.config.bombMaxVelocity + (levelMultiplier * this.config.bombMaxVelocity);
 
-    console.log(this.config.map.length, this.config.map[0].length);
-
     //  Create the invaders.
     var ranks = this.config.invaderRanks;
     var files = this.config.invaderFiles;
@@ -359,7 +373,9 @@ PlayState.prototype.enter = function(game) {
             invaders.push(new Invader(
                 (game.width / 2) + ((file - files/2) * 400 / files),
                 (game.gameBounds.top + rank * 10),
-                rank, file, 'Invader'));
+                rank, file, 'Invader',
+                this.config.map[rank][file]
+            ));
         }
     }
     this.invaders = invaders;
@@ -465,12 +481,10 @@ PlayState.prototype.update = function(game, dt) {
     }
     
     //  Check for rocket/invader collisions.
-    var accuracy = 3;
+    var accuracy = 10;
     for(i=0; i<this.invaders.length; i++) {
         var invader = this.invaders[i];
         var bang = false;
-
-
 
         for(var j=0; j<this.rockets.length; j++){
             var rocket = this.rockets[j];
@@ -483,6 +497,8 @@ PlayState.prototype.update = function(game, dt) {
                 this.rockets.splice(j--, 1);
                 bang = true;
                 game.score += this.config.pointsPerInvader;
+                ++game.score_fractions[invader.fraction_id];
+
                 break;
             }
         }
@@ -522,7 +538,10 @@ PlayState.prototype.update = function(game, dt) {
         if(bomb.x >= (this.ship.x - this.ship.width/2) && bomb.x <= (this.ship.x + this.ship.width/2) &&
                 bomb.y >= (this.ship.y - this.ship.height/2) && bomb.y <= (this.ship.y + this.ship.height/2)) {
             this.bombs.splice(i--, 1);
-            game.lives--;
+            game.lives -= Math.floor(Math.random() * 20) + 1;
+            if (game.lives < 0) {
+                game.lives = 0;
+            }
             game.sounds.playSound('explosion');
         }
                 
@@ -548,7 +567,7 @@ PlayState.prototype.update = function(game, dt) {
 
     //  Check for victory
     if(this.invaders.length === 0) {
-        game.score += this.level * 50;
+        //game.score += this.level * 50;
         game.level += 1;
         game.moveToState(new LevelIntroState(game.level));
     }
@@ -564,14 +583,16 @@ PlayState.prototype.draw = function(game, dt, ctx) {
     ctx.fillRect(this.ship.x - (this.ship.width / 2), this.ship.y - (this.ship.height / 2), this.ship.width, this.ship.height);
 
     //  Draw invaders.
-    ctx.fillStyle = '#006600';
+
     for(var i=0; i<this.invaders.length; i++) {
         var invader = this.invaders[i];
+        ctx.fillStyle = invader.color;
+
         ctx.fillRect(invader.x - invader.width/2, invader.y - invader.height/2, invader.width, invader.height);
     }
 
     //  Draw bombs.
-    ctx.fillStyle = '#ff5555';
+    ctx.fillStyle = '#ffff00';
     for(var i=0; i<this.bombs.length; i++) {
         var bomb = this.bombs[i];
         ctx.fillRect(bomb.x - 2, bomb.y - 2, 4, 4);
@@ -588,7 +609,7 @@ PlayState.prototype.draw = function(game, dt, ctx) {
     var textYpos = game.gameBounds.bottom + ((game.height - game.gameBounds.bottom) / 2) + 14/2;
     ctx.font="14px Arial";
     ctx.fillStyle = '#ffffff';
-    var info = "Lives: " + game.lives;
+    var info = "Lives: " + game.lives + "%";
     ctx.textAlign = "left";
     ctx.fillText(info, game.gameBounds.left, textYpos);
     info = "Score: " + game.score + ", Level: " + game.level;
@@ -674,7 +695,7 @@ function LevelIntroState(level) {
 
 LevelIntroState.prototype.update = function(game, dt) {
 
-    game.moveToState(new PlayState(game.config, this.level));
+    //game.moveToState(new PlayState(game.config, this.level));
 
     //  Update the countdown.
     if(this.countdown === undefined) {
@@ -755,7 +776,7 @@ function Bomb(x, y, velocity) {
     Invader's have position, type, rank/file and that's about it. 
 */
 
-function Invader(x, y, rank, file, type) {
+function Invader(x, y, rank, file, type, fraction_id) {
     this.x = x;
     this.y = y;
     this.rank = rank;
@@ -763,6 +784,41 @@ function Invader(x, y, rank, file, type) {
     this.type = type;
     this.width = 8;
     this.height = 8;
+    this.fraction_id = fraction_id;
+
+    // get fraction color
+    switch(fraction_id) {
+        case 1:
+            this.color = '#d1193b';
+            break;
+        case 2:
+            this.color = '#f97200';
+            break;
+        case 3:
+            this.color = '#878787';
+            break;
+        case 4:
+            this.color = '#0000ff';
+            break;
+        case 5:
+            this.color = '#19950b';
+            break;
+        case 6:
+            this.color = '#1a9daa';
+            break;
+        case 7:
+            this.color = '#e3de22';
+            break;
+        case 8:
+            this.color = '#a1a724';
+            break;
+        case 9:
+            this.color = '#960178';
+            break;
+        default:
+            this.color = '#006600';
+    }
+
 }
 
 /*
