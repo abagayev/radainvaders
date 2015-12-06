@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Rada Invaders</title>
+        <link rel="stylesheet" type="text/css" href="css/core.css">
+        <link rel="stylesheet" type="text/css" href="css/typeography.css">
+        <style>
+    
+            /* Styling needed for a fullscreen canvas and no scrollbars. */
+            body, html { 
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            }
+
+            #starfield {
+                width:100%;
+                height:100%;
+                z-index: -1;
+                position: absolute;
+                left: 0px;
+                top: 0px;
+            }
+            #gamecontainer {
+                width: 800px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            #gamecanvas { 
+                width: 800px;
+                height: 600px;
+            }
+            #info {
+                width: 800px;
+                margin-left: auto;
+                margin-right: auto;
+                color: #ffffff;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="starfield"></div>
+        <div id="info">
+            <h1>404</h1>
+            <p>Page not found</p>
+            <p>
+                <a href="/">&larr; back to game</a>
+            </p>
+        </div>
+
+        <script src="js/starfield.js"></script>
+        <script src="js/spaceinvaders.js"></script>
+        <script>
+
+            //  Create the starfield.
+            var container = document.getElementById('starfield');
+            var starfield = new Starfield();
+            starfield.initialise(container);
+            starfield.start();
+
+        </script>
+
+        <!-- Hello Google -->
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-30640626-4', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+
+    </body>
+</html>
