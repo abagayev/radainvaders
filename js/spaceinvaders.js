@@ -26,7 +26,7 @@ function Game() {
 
     //  Set the initial config.
     this.config = {
-        bombRate: 0.01,
+        bombRate: 0.02,
         bombMinVelocity: 50,
         bombMaxVelocity: 50,
         invaderInitialVelocity: 10,
@@ -196,6 +196,14 @@ function GameLoop(game) {
     }
 }
 
+function sklonen(n, s1, s2, s3) {
+    var m = n % 10;
+    var j = n % 100;
+    if (m == 0 || m >= 5 || (j >= 10 && j <= 20)) return n + " " + s3;
+    if (m >= 2 && m <= 4) return n + " " + s2;
+    return n + " " + s1;
+}
+
 Game.prototype.pushState = function(state) {
 
     //  If there's an enter function for the new state, call it.
@@ -273,7 +281,7 @@ WelcomeState.prototype.draw = function(game, dt, ctx) {
     ctx.fillText("Rada Invaders", game.width / 2, game.height/2 - 40);
     ctx.font="16px Arial";
 
-    ctx.fillText("Press 'Space' to start.", game.width / 2, game.height/2); 
+    ctx.fillText("Тисніть пробіл, щоб почати.", game.width / 2, game.height/2);
 };
 
 WelcomeState.prototype.keyDown = function(game, keyCode) {
@@ -304,11 +312,11 @@ GameOverState.prototype.draw = function(game, dt, ctx) {
     ctx.fillStyle = '#ffffff';
     ctx.textBaseline="center"; 
     ctx.textAlign="center"; 
-    ctx.fillText("Game Over!", game.width / 2, game.height/2 - 40);
+    ctx.fillText("Гру скінчено!", game.width / 2, game.height/2 - 40);
     ctx.font="16px Arial";
-    ctx.fillText("You scored " + game.score + " and got to level " + game.level, game.width / 2, game.height/2);
+    ctx.fillText("Ви знешкодили " + sklonen(game.score, "депутата", "депутати", "депутатів") + ", дійшовши до " + game.level + " читання", game.width / 2, game.height/2);
     ctx.font="16px Arial";
-    ctx.fillText("Press 'Space' to play again.", game.width / 2, game.height/2 + 40);   
+    ctx.fillText("Тисніть пробіл, щоб грати знов.", game.width / 2, game.height/2 + 40);
 };
 
 GameOverState.prototype.keyDown = function(game, keyCode) {
@@ -609,10 +617,10 @@ PlayState.prototype.draw = function(game, dt, ctx) {
     var textYpos = game.gameBounds.bottom + ((game.height - game.gameBounds.bottom) / 2) + 14/2;
     ctx.font="14px Arial";
     ctx.fillStyle = '#ffffff';
-    var info = "Lives: " + game.lives + "%";
+    var info = "Здоров'я: " + game.lives + "%";
     ctx.textAlign = "left";
     ctx.fillText(info, game.gameBounds.left, textYpos);
-    info = "Score: " + game.score + ", Level: " + game.level;
+    info = "Знешкоджено депутатів: " + game.score + ", Читання: " + game.level;
     ctx.textAlign = "right";
     ctx.fillText(info, game.gameBounds.right, textYpos);
 
@@ -724,10 +732,30 @@ LevelIntroState.prototype.draw = function(game, dt, ctx) {
     ctx.font="36px Arial";
     ctx.fillStyle = '#ffffff';
     ctx.textBaseline="middle"; 
-    ctx.textAlign="center"; 
-    ctx.fillText("Level " + this.level, game.width / 2, game.height/2);
+    ctx.textAlign="center";
+
+    var level_text;
+
+    switch(this.level) {
+        case 1:
+            level_text = "Перше читання";
+            break;
+        case 2:
+            level_text = "Друге читання";
+            break;
+        case 1:
+            level_text = "Третє читання";
+            break;
+        case 1:
+            level_text = "Четверте читання";
+            break;
+        default:
+            level_text = "Читання " + this.level;
+    }
+
+    ctx.fillText(level_text, game.width / 2, game.height/2);
     ctx.font="24px Arial";
-    ctx.fillText("Ready in " + this.countdownMessage, game.width / 2, game.height/2 + 36);      
+    ctx.fillText("Починаємо за " + this.countdownMessage, game.width / 2, game.height/2 + 36);
     return;
 };
 

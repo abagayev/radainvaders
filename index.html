@@ -2,20 +2,30 @@
 <html>
     <head>
         <title>Rada Invaders</title>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+        <meta property="og:title" content="Rada Invaders" />
+        <meta property="og:site_name" content="Rada Invaders" />
+        <meta property="og:image" content="http://radainvaders.com.ua/img/screenshot.jpg" />
+        <meta property="og:url" content="http://radainvaders.com.ua" />
+        <meta property="og:see_also" content="http://dontgiveafish.com" />
+
         <link rel="stylesheet" type="text/css" href="css/core.css">
         <link rel="stylesheet" type="text/css" href="css/typeography.css">
         <style>
     
             /* Styling needed for a fullscreen canvas and no scrollbars. */
             body, html { 
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
             }
 
             #starfield {
+                background: #000000 url(img/rada.jpg);
+                background-size: cover;
                 width:100%;
                 height:100%;
                 z-index: -1;
@@ -45,11 +55,12 @@
         <canvas id="gameCanvas"></canvas>
         </div>
         <div id="info">
-            <p>Move with arrow keys, fire with the space bar. The invaders get faster and drop
-                more bombs as you complete each level!</p>
-            <p><a id="muteLink" href="#" onclick="toggleMute()">mute</a> | 
-                <a href="http://github.com/dwmkerr/spaceinvaders">spaceinvaders on github</a> | 
-                <a href="http://www.dwmkerr.com/experiments">more experiments</a> | <a href="http://www.dwmkerr.com">dwmkerr.com</a></p>
+            <p>
+                Кожного читання депутати скаженіють все більше!
+                Використовуйте стрілки, щоб рухатись, стріляйте пробілом, бережіть здоров'я.
+                Доречі, цей проект є на <a href="https://github.com/abagayev/radainvaders">гітхабі</a>
+                і його зробив Антін з <a href="http://dontgiveafish.com">Don'tgiveafish</a>.
+            </p>
         </div>
 
         <script src="js/starfield.js"></script>
@@ -107,6 +118,9 @@
             ga('send', 'pageview');
 
         </script>
+
+        <!-- Hello Addthis -->
+        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-566580d5ce39a466" async="async"></script>
 
     </body>
 </html>
