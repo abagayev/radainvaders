@@ -122,7 +122,6 @@ Game.prototype.initialise = function(gameCanvas) {
 };
 
 Game.prototype.moveToState = function(state) {
- 
    //  If we are in a state, leave it.
    if(this.currentState() && this.currentState().leave) {
      this.currentState().leave(game);
@@ -262,6 +261,13 @@ WelcomeState.prototype.enter = function(game) {
     game.sounds.loadSound('shoot', 'sounds/shoot.wav');
     game.sounds.loadSound('bang', 'sounds/bang.wav');
     game.sounds.loadSound('explosion', 'sounds/explosion.wav');
+    game.sounds.loadSound('pikpikpik', 'sounds/pikpikpik.wav');
+    game.sounds.loadSound('zala', 'sounds/zala.wav', function(sound) {
+        // loop sound of zala
+        game.sounds.playSound(sound);
+        setInterval(function () { game.sounds.playSound(sound); }, 1000 * 40);
+    });
+
 };
 
 WelcomeState.prototype.update = function (game, dt) {
@@ -708,6 +714,7 @@ LevelIntroState.prototype.update = function(game, dt) {
     //  Update the countdown.
     if(this.countdown === undefined) {
         this.countdown = 3; // countdown from 3 secs
+        game.sounds.playSound('pikpikpik');
     }
     this.countdown -= dt;
 
@@ -743,10 +750,10 @@ LevelIntroState.prototype.draw = function(game, dt, ctx) {
         case 2:
             level_text = "Друге читання";
             break;
-        case 1:
+        case 3:
             level_text = "Третє читання";
             break;
-        case 1:
+        case 4:
             level_text = "Четверте читання";
             break;
         default:
@@ -892,7 +899,7 @@ Sounds.prototype.init = function() {
     this.mute = false;
 };
 
-Sounds.prototype.loadSound = function(name, url) {
+Sounds.prototype.loadSound = function(name, url, onload) {
 
     //  Reference to ourselves for closures.
     var self = this;
@@ -907,6 +914,10 @@ Sounds.prototype.loadSound = function(name, url) {
     req.onload = function() {
         self.audioContext.decodeAudioData(req.response, function(buffer) {
             self.sounds[name] = {buffer: buffer};
+
+            if (typeof onload === 'function') {
+                onload(name);
+            }
         });
     };
     try {
@@ -919,8 +930,6 @@ Sounds.prototype.loadSound = function(name, url) {
 };
 
 Sounds.prototype.playSound = function(name) {
-
-    return;
 
     //  If we've not got the sound, don't bother playing it.
     if(this.sounds[name] === undefined || this.sounds[name] === null || this.mute === true) {
