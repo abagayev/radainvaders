@@ -268,6 +268,96 @@ WelcomeState.prototype.enter = function(game) {
         setInterval(function () { game.sounds.playSound(sound); }, 1000 * 40);
     });
 
+    // Define deputates and on show events
+    game.deputates = new Deputates(game.sounds);
+
+    game.deputates.loadDeputat('propalo', function (deputat) {
+        deputat
+            .css({
+                left: $(window).width() / 2,
+                top: $(window).height(),
+                position: 'absolute'
+            })
+            .animate({top: $(window).height() - deputat.height()}, {
+                duration: 1000,
+                specialEasing: {top: 'easeOutQuad', left: 'easeInQuad'},
+                complete: function () {
+                    deputat.animate({top: $(window).height()}, {
+                        duration: 1000,
+                        specialEasing: {top: 'easeOutQuad', left: 'easeInQuad'},
+                        complete: function () {
+                            deputat.hide();
+                        }
+                    });
+                }
+            });
+    });
+
+    game.deputates.loadDeputat('intothedeep', function (deputat) {
+        deputat
+            .css({left: 0, top: 0, position: 'absolute'})
+            .animate({borderSpacing: -360}, { // rotate
+                step: function (now, fx) {
+                    deputat.css('-webkit-transform', 'rotate(' + now + 'deg)');
+                    deputat.css('-moz-transform', 'rotate(' + now + 'deg)');
+                    deputat.css('transform', 'rotate(' + now + 'deg)');
+                },
+                duration: 2000, queue: false
+            }, 'linear')
+            .animate({left: $(window).width(), top: $(window).height() / 2}, {
+                duration: 2000,
+                specialEasing: {top: 'easeOutQuad', left: 'easeInQuad'},
+                complete: function () {
+                    deputat.hide();
+                }
+            });
+    });
+
+    game.deputates.loadDeputat('skotyniaky', function (deputat) {
+
+        deputat
+            .css({
+                left: $(window).width(),
+                top: $(window).height() / 2  - deputat.width() / 2,
+                position: 'absolute'
+            })
+            .animate({left: $(window).width() - deputat.width()}, {
+                duration: 500,
+                //specialEasing: {top: 'easeOutQuad', left: 'easeInQuad'},
+                complete: function () {
+                    deputat.animate({left: $(window).width()}, {
+                        duration: 2500,
+                        specialEasing: {top: 'easeOutQuad', left: 'easeInQuad'},
+                        complete: function () {
+                            deputat.hide();
+                        }
+                    });
+                }
+            });
+    });
+
+    game.deputates.loadDeputat('ivseh', function (deputat) {
+        deputat
+            .css({
+                left: $(window).width() / 2 - deputat.width() * 2,
+                top: $(window).height(),
+                position: 'absolute'
+            })
+            .animate({top: $(window).height() - deputat.height()}, {
+                duration: 1500,
+                specialEasing: {top: 'easeOutQuad', left: 'easeInQuad'},
+                complete: function () {
+                    deputat.animate({top: $(window).height()}, {
+                        duration: 1000,
+                        specialEasing: {top: 'easeOutQuad', left: 'easeInQuad'},
+                        complete: function () {
+                            deputat.hide();
+                        }
+                    });
+                }
+            });
+    });
+
 };
 
 WelcomeState.prototype.update = function (game, dt) {
@@ -516,9 +606,26 @@ PlayState.prototype.update = function(game, dt) {
                 break;
             }
         }
-        if(bang) {
+        if (bang) {
             this.invaders.splice(i--, 1);
-            game.sounds.playSound('bang');
+
+            if (invader.file == 34 && invader.rank == 13) {
+                game.deputates.showDeputat('ivseh');
+            }
+
+            if (invader.file == 23 && invader.rank == 6) {
+                game.deputates.showDeputat('skotyniaky');
+            }
+            else if (invader.file == 25 && invader.rank == 1) {
+                game.deputates.showDeputat('propalo');
+            }
+
+            else if (invader.file == 14 && invader.rank == 5) {
+                game.deputates.showDeputat('intothedeep');
+            }
+            else {
+                game.sounds.playSound('bang');
+            }
         }
     }
 
@@ -942,4 +1049,62 @@ Sounds.prototype.playSound = function(name) {
     source.buffer = this.sounds[name].buffer;
     source.connect(this.audioContext.destination);
     source.start(0);
+};
+
+/*
+
+ Deputates
+
+ This class is here to preload images and sounds of deputates
+ and define on load event
+
+ */
+
+function Deputates(sounds) {
+
+    //  The actual set of loaded deputates
+    this.collection = {};
+
+    // Save sounds
+    this.sounds = sounds;
+
+}
+
+Deputates.prototype.loadDeputat = function(name, onshow) {
+
+    // load image
+    var image = $('<img src="img/' + name + '.png" alt="">');
+    $('body').append(image);
+    image.hide();
+
+    // load sound
+    this.sounds.loadSound(name, 'sounds/' + name + '.wav');
+
+    //  Create an entry in the deputates object.
+    this.collection[name] = {
+        image: image,
+        onshow: onshow
+    };
+
+};
+
+Deputates.prototype.showDeputat = function(name) {
+
+    //  If we've not got the deputat, don't bother showing it.
+    if(this.collection[name] === undefined || this.collection[name] === null) {
+        return;
+    }
+
+    // add pobability
+    if (Math.random() < 0.5) {
+        return;
+    }
+
+    var params = this.collection[name];
+
+    // show imagem, call on show event, play sound
+    params.image.show();
+    params.onshow(params.image);
+    this.sounds.playSound(name);
+
 };

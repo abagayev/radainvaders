@@ -66,6 +66,11 @@
 
         <script src="js/starfield.js"></script>
         <script src="js/spaceinvaders.js"></script>
+
+        <!-- jQuery -->
+         <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+         <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
         <script>
 
             //  Create the starfield.
@@ -85,9 +90,6 @@
             //  Initialise it with the game canvas.
             game.initialise(canvas);
 
-            //  Start the game.
-            game.start();
-
             //  Listen for keyboard events.
             window.addEventListener("keydown", function keydown(e) {
                 var keycode = e.which || window.event.keycode;
@@ -106,6 +108,12 @@
                 game.mute();
                 document.getElementById("muteLink").innerText = game.sounds.mute ? "unmute" : "mute";
             }
+
+            // start game only with jquery to preload images
+            $(function() {
+                game.start();
+            });
+
         </script>
 
         <!-- Hello Google -->
