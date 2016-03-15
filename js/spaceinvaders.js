@@ -326,7 +326,7 @@ WelcomeState.prototype.enter = function(game) {
                 //specialEasing: {top: 'easeOutQuad', left: 'easeInQuad'},
                 complete: function () {
                     deputat.animate({left: $(window).width()}, {
-                        duration: 2500,
+                        duration: 3000,
                         specialEasing: {top: 'easeOutQuad', left: 'easeInQuad'},
                         complete: function () {
                             deputat.hide();
